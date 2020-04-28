@@ -1,5 +1,5 @@
-django==2.2
-mysqlclient
+django==2.1.8
+pymysql
 pillow
 django-pure-pagination
 redis

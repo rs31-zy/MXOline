@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.users.apps.UsersConfig',
     'apps.courses.apps.CoursesConfig',
+    'crispy_forms',
+    'xadmin.apps.XAdminConfig',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +89,9 @@ DATABASES = {
         'PASSWORD': "12345678",
         'HOST': "127.0.0.1",
         'PORT': '3306',
+        'OPTIONS': {
+            "init_command": "SET foreign_key_checks = 0;",
+        }
     }
 }
 
