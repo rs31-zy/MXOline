@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# user表在Django中已经注册了，appname = user
+AUTH_USER_MODEL = "users.UserProfile"
+
 
 # Application definition
 
@@ -37,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.users.apps.UsersConfig',
+    'apps.courses.apps.CoursesConfig',
 ]
 
 MIDDLEWARE = [
