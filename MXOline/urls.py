@@ -30,7 +30,7 @@ urlpatterns = [
     # path('', views.index),
     path('',TemplateView.as_view(template_name="index.html"),name = "index"),
     path('login/',LoginView.as_view(),name = "login"),
-    path('orglist/', OrgView.as_view(), name="org-list"),
+    path('orglist/', OrgView.as_view(), name="org_list"),
     #配置上传文件的访问路径
     url(r'^media/(?P<path>.*)$',serve,{'document_root':MEDIA_ROOT}),
 ]

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'xadmin.apps.XAdminConfig',
     'apps.organizations.apps.OrganizationsConfig',
     'apps.operations.apps.OperationsConfig',
+    'pure_pagination',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,10 @@ STATICFILES_DIRS = [
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 3,
+    'MARGIN_PAGES_DISPLAYED': 2,
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
