@@ -32,7 +32,7 @@ class CourseOrg(BaseModel):
     gold = models.BooleanField(default=False, verbose_name="是否金牌")
 
     class Meta:
-        verbose_name = "机构信息"
+        verbose_name = "课程机构"
         verbose_name_plural = verbose_name
 
     def __str__(self):
