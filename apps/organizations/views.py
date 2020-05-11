@@ -12,6 +12,7 @@ class OrgView(View):
 
         all_orgs = CourseOrg.objects.all()
         all_citys = City.objects.all()
+        hot_orgs = all_orgs.order_by("-click_nums")[:3]
 
         org = request.GET.get("ct","")
         if org:
@@ -47,4 +48,5 @@ class OrgView(View):
                                                'org':org,
                                                'city_id':city_id,
                                                'sort':sort,
+                                               'hot_orgs':hot_orgs,
                                                })
