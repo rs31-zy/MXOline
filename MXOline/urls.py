@@ -19,7 +19,6 @@ import xadmin
 # from apps.users import views
 from django.views.generic import TemplateView
 from apps.users.views import LoginView
-from apps.courses.views import CourseView
 from django.conf.urls import url,include
 from django.views.static import serve
 from MXOline.settings import MEDIA_ROOT
@@ -29,10 +28,10 @@ urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     # path('', views.index),
     path('',TemplateView.as_view(template_name="index.html"),name = "index"),
-    path('courselist/', CourseView.as_view(), name="course_list"),
     path('login/',LoginView.as_view(),name = "login"),
     #配置授课机构相关操作
     url(r'^org/', include(('apps.organizations.urls', 'organizations'), namespace='org')),
+    url(r'^course/', include(('apps.courses.urls', 'organizations'), namespace='course')),
     #配置上传文件的访问路径
     url(r'^media/(?P<path>.*)$',serve,{'document_root':MEDIA_ROOT}),
 
