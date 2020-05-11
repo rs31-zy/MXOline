@@ -21,6 +21,14 @@ class OrgView(View):
         if city_id:
             if city_id.isdigit():
                 all_orgs = all_orgs.filter(city_id=int(city_id))
+        #对课程机构进行排序 减号代表倒序排序
+        sort = request.GET.get('sort','')
+        if sort == 'students':
+            all_orgs = all_orgs.order_by('-student')
+        elif sort == 'courses':
+            all_orgs = all_orgs.order_by('lesson_nums')
+
+
 
         org_nums = all_orgs.count()
 
@@ -33,4 +41,10 @@ class OrgView(View):
         orgs = p.page(page)
 
 
-        return render(request,'org-list.html',{'all_orgs':orgs,'org_nums':org_nums,'all_citys':all_citys,'org':org,'city_id':city_id,})
+        return render(request,'org-list.html',{'all_orgs':orgs,
+                                               'org_nums':org_nums,
+                                               'all_citys':all_citys,
+                                               'org':org,
+                                               'city_id':city_id,
+                                               'sort':sort,
+                                               })

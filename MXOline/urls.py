@@ -20,6 +20,7 @@ import xadmin
 from django.views.generic import TemplateView
 from apps.users.views import LoginView
 from apps.organizations.views import OrgView
+from apps.courses.views import CourseView
 from django.conf.urls import url
 from django.views.static import serve
 from MXOline.settings import MEDIA_ROOT
@@ -29,6 +30,7 @@ urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     # path('', views.index),
     path('',TemplateView.as_view(template_name="index.html"),name = "index"),
+    path('courselist/', CourseView.as_view(), name="course_list"),
     path('login/',LoginView.as_view(),name = "login"),
     path('orglist/', OrgView.as_view(), name="org_list"),
     #配置上传文件的访问路径
