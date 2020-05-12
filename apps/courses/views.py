@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
 from apps.courses.models import Course
-from django.shortcuts import render_to_response
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from pure_pagination import Paginator, PageNotAnInteger
 # Create your views here.
 
 
