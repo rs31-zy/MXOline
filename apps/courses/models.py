@@ -28,6 +28,10 @@ class Course(BaseModel):
     def __str__(self):
         return self.name
 
+    def lesson_nums(self):
+        """统计章节数"""
+        return self.lesson_set.all().count()
+
 
 class Lesson(BaseModel):
     # on_delete表示对应的外键数据被删除时，当前数据做什么
