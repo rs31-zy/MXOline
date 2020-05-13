@@ -9,11 +9,11 @@ from apps.operations.models import UserFavorite
 class CourseView(View):
     def get(self,request,*args,**kwargs):
         all_courses = Course.objects.order_by('-add_time')
-        hot_courses = all_courses.order_by("-student")[:3]
+        hot_courses = all_courses.order_by("-students")[:3]
 
         sort = request.GET.get('sort', '')
         if sort == 'hot':
-            all_courses = all_courses.order_by('-student')
+            all_courses = all_courses.order_by('-students')
         elif sort == 'students':
             all_courses = all_courses.order_by('click_nums')
 

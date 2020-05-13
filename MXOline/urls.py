@@ -31,7 +31,10 @@ urlpatterns = [
     path('login/',LoginView.as_view(),name = "login"),
     #配置授课机构相关操作
     url(r'^org/', include(('apps.organizations.urls', 'organizations'), namespace='org')),
-    url(r'^course/', include(('apps.courses.urls', 'organizations'), namespace='course')),
+    #课程相关
+    url(r'^course/', include(('apps.courses.urls', 'courses'), namespace='course')),
+    #用户相关操作
+    url(r'^op/', include(('apps.operations.urls', 'operations'), namespace='op')),
     #配置上传文件的访问路径
     url(r'^media/(?P<path>.*)$',serve,{'document_root':MEDIA_ROOT}),
 

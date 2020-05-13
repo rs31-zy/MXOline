@@ -29,7 +29,12 @@ class CourseOrg(BaseModel):
     student = models.IntegerField(verbose_name="学习人数", default=0)
     lesson_nums = models.IntegerField(verbose_name="课程数",default=0)
     attestation = models.BooleanField(default=False, verbose_name="是否认证")
+    desc = models.CharField(max_length=200, verbose_name=u"描述",default="")
     gold = models.BooleanField(default=False, verbose_name="是否金牌")
+
+    def courses(self):
+        courses = self.course_set.filter(is_classics=True)[:3]
+        return courses
 
     class Meta:
         verbose_name = "课程机构"
@@ -41,7 +46,7 @@ class CourseOrg(BaseModel):
 
 class Teacher(BaseModel):
     user = models.OneToOneField(UserProfile, verbose_name="用户", on_delete=models.SET_NULL, null=True, blank=True)
-    org_name = models.CharField(verbose_name="所属机构", max_length=20)
+    org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE, verbose_name="所属机构")
     name = models.CharField(verbose_name="教师姓名", max_length=10)
     years = models.IntegerField(default=0, verbose_name="工作年限")
     company = models.CharField(verbose_name="就职公司",max_length=50)
@@ -52,6 +57,9 @@ class Teacher(BaseModel):
     age = models.IntegerField(default=0, verbose_name="年龄")
     image = models.ImageField(upload_to="teacher/%Y/%m", verbose_name="头像", max_length=100)
 
+
+    def course_nums(self):
+        return self.course_set.all().count()
     class Meta:
         verbose_name = "教师信息"
         verbose_name_plural = verbose_name
