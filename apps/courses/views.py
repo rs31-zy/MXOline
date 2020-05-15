@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from apps.courses.models import Course
+from apps.courses.models import Course, Video
 from pure_pagination import Paginator, PageNotAnInteger
 from apps.operations.models import UserFavorite
 # Create your views here.
@@ -51,3 +51,13 @@ class CourseDetailView(View):
                                                     'has_fav_org':has_fav_org
                                                     })
 
+
+class CourseLessonView(View):
+    def get(self,request,course_id,*args,**kwargs):
+        course = Course.objects.get(id = int(course_id))
+
+        course.click_nums += 1
+        course.save()
+
+        return render(request, 'course-video.html',{'course':course,
+                                                    })
