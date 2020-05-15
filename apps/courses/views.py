@@ -3,6 +3,7 @@ from django.views.generic import View
 from apps.courses.models import Course, Video
 from pure_pagination import Paginator, PageNotAnInteger
 from apps.operations.models import UserFavorite
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 
@@ -52,7 +53,9 @@ class CourseDetailView(View):
                                                     })
 
 
-class CourseLessonView(View):
+class CourseLessonView(LoginRequiredMixin, View):
+    login_url = '/login/'
+
     def get(self,request,course_id,*args,**kwargs):
         course = Course.objects.get(id = int(course_id))
 
