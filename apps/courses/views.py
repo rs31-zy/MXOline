@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from apps.courses.models import Course, Video, CourseResource
+from apps.courses.models import Course, Video, CourseResource, CourseTag
 from pure_pagination import Paginator, PageNotAnInteger
 from apps.operations.models import UserFavorite, UserCourse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -36,7 +36,7 @@ class CourseDetailView(View):
         course = Course.objects.get(id=int(course_id))
         course.click_nums += 1
         course.save()
-
+        #获取收藏
         has_fav_course = False
         has_fav_org = False
 
@@ -46,10 +46,26 @@ class CourseDetailView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course.id, fav_type=2):
                 has_fav_org = True
 
+        #课程推荐
+        #通过课程的单标签进行推荐
+        # tag = course.tag
+        # related_courses = []
+        # if tag:
+        #     related_courses = Course.objects.filter(tag=tag).exclude(id__in=[course.id])[:3]
+
+        tags = course.coursetag_set.all()
+        tag_list = [tag.tag for tag in tags]
+
+        related_courses = []
+        course_tags = CourseTag.objects.filter(tag__in=tag_list).exclude(course_id=course.id)
+        for course_tag in course_tags:
+            related_courses.append(course_tag.course)
+
 
         return render(request,'course-detail.html',{'course':course,
                                                     'has_fav_course':has_fav_course,
-                                                    'has_fav_org':has_fav_org
+                                                    'has_fav_org':has_fav_org,
+                                                    'related_courses':related_courses,
                                                     })
 
 

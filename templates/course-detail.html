@@ -233,18 +233,23 @@
                     <div class="head">相关课程推荐</div>
                     <div class="group_recommend">
 
-                        <dl>
-                            <dt>
-                                <a target="_blank" href="">
-                                    <img width="240" height="220" class="scrollLoading"
-                                         src="../media/courses/2016/11/540e57300001d6d906000338-240-135_mvvGYHL.jpg"/>
-                                </a>
-                            </dt>
-                            <dd>
-                                <a target="_blank" href=""><h2> django实战项目</h2></a>
-                                <span class="fl">学习时长：<i class="key">0</i></span>
-                            </dd>
-                        </dl>
+                        {% for course in related_courses %}
+                            <dl>
+                                <dt>
+                                    <a target="_blank" href="">
+                                        <img width="240" height="220" class="scrollLoading"
+                                             src="{{ course.image.url }}"/>
+                                    </a>
+                                </dt>
+                                <dd>
+                                    <a target="_blank" href=""><h2> {{ course.name }}</h2></a>
+                                    <span class="fl">学习时长：<i class="key">{{ course.learn_times }}</i></span>
+                                </dd>
+                            </dl>
+                        {% endfor %}
+
+
+
 
 
                     </div>
