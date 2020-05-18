@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import View
-from apps.courses.models import Course, Video
+from apps.courses.models import Course, Video, CourseResource
 from pure_pagination import Paginator, PageNotAnInteger
-from apps.operations.models import UserFavorite
+from apps.operations.models import UserFavorite, UserCourse
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
@@ -58,9 +58,23 @@ class CourseLessonView(LoginRequiredMixin, View):
 
     def get(self,request,course_id,*args,**kwargs):
         course = Course.objects.get(id = int(course_id))
+        #查询资料
 
         course.click_nums += 1
         course.save()
 
+        user_courses = UserCourse.objects.filter(course=course)
+        user_ids = [user_course.user.id for user_course in user_courses]
+        all_courses = UserCourse.objects.filter(user_id__in=user_ids).order_by("-course__click_nums")[0:5]
+        related_courses = []
+        for item in all_courses:
+            if item.course.id != course.id:
+                related_courses.append(item.course)
+
+
+
+        course_resource = CourseResource.objects.filter(course=course)
         return render(request, 'course-video.html',{'course':course,
+                                                    'course_resource':course_resource,
+                                                    'related_courses':related_courses,
                                                     })
