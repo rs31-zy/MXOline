@@ -25,7 +25,7 @@ SECRET_KEY = 'lx2$#9lp41%w+j$%25+%c&np*r)-pqh*0x2)n$0wh1m-bqve@6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # user表在Django中已经注册了，appname = user
 AUTH_USER_MODEL = "users.UserProfile"
