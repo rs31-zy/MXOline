@@ -121,3 +121,31 @@ class CourseCommentsView(LoginRequiredMixin,View):
                                                        'related_courses': related_courses,
                                                        'comments': comments,
                                                        })
+
+class VideoView(LoginRequiredMixin, View):
+    login_url = '/login/'
+
+    def get(self, request, course_id, video_id, *args, **kwargs):
+        course = Course.objects.get(id=int(course_id))
+        # 查询资料
+
+        course.click_nums += 1
+        course.save()
+        #加载视频信息
+        video = Video.objects.get(id=int(video_id))
+
+
+        user_courses = UserCourse.objects.filter(course=course)
+        user_ids = [user_course.user.id for user_course in user_courses]
+        all_courses = UserCourse.objects.filter(user_id__in=user_ids).order_by("-course__click_nums")[0:5]
+        related_courses = []
+        for item in all_courses:
+            if item.course.id != course.id:
+                related_courses.append(item.course)
+
+        course_resource = CourseResource.objects.filter(course=course)
+        return render(request, 'course-play.html', {'course': course,
+                                                    'course_resource': course_resource,
+                                                    'related_courses': related_courses,
+                                                    'video':video,
+                                                     })
