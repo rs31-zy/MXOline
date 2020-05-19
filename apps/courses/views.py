@@ -106,7 +106,7 @@ class CourseCommentsView(LoginRequiredMixin,View):
         course.click_nums += 1
         course.save()
 
-        comments = CourseComments.objects.filter(course=course)
+        comments = CourseComments.objects.filter(course=course).order_by("-add_time")
         user_courses = UserCourse.objects.filter(course=course)
         user_ids = [user_course.user.id for user_course in user_courses]
         all_courses = UserCourse.objects.filter(user_id__in=user_ids).order_by("-course__click_nums")[0:5]
