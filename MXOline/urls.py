@@ -18,6 +18,8 @@ from django.urls import path
 import xadmin
 # from apps.users import views
 from django.views.generic import TemplateView
+
+from apps.operations.views import IndexView
 from apps.users.views import LoginView, LogoutView
 from django.conf.urls import url,include
 from django.views.static import serve
@@ -27,7 +29,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
     # path('', views.index),
-    path('',TemplateView.as_view(template_name="index.html"),name = "index"),
+    # path('',TemplateView.as_view(template_name="index.html"),name = "index"),
+    path('',IndexView.as_view(),name = "index"),
     path('login/',LoginView.as_view(),name = "login"),
     path('logout/', LogoutView.as_view(), name="logout"),
 
