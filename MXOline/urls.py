@@ -40,6 +40,9 @@ urlpatterns = [
     url(r'^course/', include(('apps.courses.urls', 'courses'), namespace='course')),
     #用户相关操作
     url(r'^op/', include(('apps.operations.urls', 'operations'), namespace='op')),
+
+    url(r'^users/', include(('apps.users.urls', 'users'), namespace='users')),
+
     #配置上传文件的访问路径
     url(r'^media/(?P<path>.*)$',serve,{'document_root':MEDIA_ROOT}),
 

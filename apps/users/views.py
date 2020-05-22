@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
@@ -38,3 +39,9 @@ class LogoutView(View):
         logout(request)
         return HttpResponseRedirect(reverse('index'))
 
+class UserInfoView(LoginRequiredMixin,View):
+    login_url = '/login/'
+    def get(self,request,*args,**kwargs):
+
+
+        return render(request,'usercenter-info.html')
